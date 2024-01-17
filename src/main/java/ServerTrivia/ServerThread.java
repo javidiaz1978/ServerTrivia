@@ -6,38 +6,50 @@ import questionmodel.Deck;
 import java.io.*;
 import java.net.Socket;
 
-public class ServerThread implements Runnable{
+public class ServerThread extends Thread {
     Socket service;
     private Deck deck;
     private Card card;
+    private ObjectOutputStream sOut;
+    private ObjectInputStream sIn;
+    private int correct=0;
+    private int incorrect =0;
+    private String resp;
+    private String name;
+    private int points=0;
 
-    public ServerThread(Socket s, Deck deck) {
+    public ServerThread(Socket s,String name) {
         service = s;
-        this.deck=deck;
+        this.name= name;
     }
 
     public void run() {
-        DataOutputStream sOut = null;
-        DataInputStream sIn = null;
-        ObjectOutputStream oOut = null;
 
         try {
-            sIn = new DataInputStream(service.getInputStream());
-            sOut = new DataOutputStream(service.getOutputStream());
-            oOut = new ObjectOutputStream(service.getOutputStream());
-
+            deck = new Deck();
+            sOut = new ObjectOutputStream(service.getOutputStream());
+            sIn = new ObjectInputStream(service.getInputStream());
+            System.out.println("Entra en hilo");
             String line;
 
             while (true) {
                 card = deck.getCard();
-                oOut.writeObject(card);
-                line= sIn.readUTF();
+
+                sOut.writeObject(card);
+
+
+                System.out.println("Envía tarjeta");
+                System.out.println(card.getQuestion());
+
+                line = sIn.readUTF();
                 System.out.println(line);
-                System.out.println(card.getCorrectAnswer());
 
-                sOut.writeUTF("Recibido");
+                testAnswer(line, card.getCorrectAnswer());
+                sOut.writeInt(correct);
+                sOut.writeInt(incorrect);
 
-              if(line.equals("bye")){
+
+                if (line.equals("bye")) {
                     break;
                 }
             }
@@ -71,5 +83,20 @@ public class ServerThread implements Runnable{
                 System.out.println(ex);
             }
         }
+    }
+
+    private void testAnswer(String answer, String correctAnswer){
+        if(answer.equals(correctAnswer)){
+            correct++;
+            points = points+5;
+            resp="Correct";
+        }
+        else{
+            incorrect++;
+            resp="Incorrect";
+            points=points-3;
+        }
+        System.out.println("Correct = "+correct+", incorrect= "+incorrect);
+
     }
 }

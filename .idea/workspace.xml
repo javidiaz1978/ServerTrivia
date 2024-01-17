@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dfaa1963-fb6f-4000-9085-1b16a4f27eb6" name="Changes" comment="movemos carpeta">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ServerTrivia/ServerMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ServerTrivia/ServerThread.java" afterDir="false" />
+    <list default="true" id="dfaa1963-fb6f-4000-9085-1b16a4f27eb6" name="Changes" comment="actualizamos thread para cargar los datos de la card">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ServerTrivia/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ServerTrivia/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ServerTrivia/ServerMainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ServerTrivia/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ServerTrivia/ServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ServerTrivia/ServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ServerTrivia/ServerThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +38,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/Javi/Desktop/intelij/psp/03/com.javierDiaz/TriviaFx",
+    "last_opened_file_path": "C:/Users/Javi/Desktop/intelij/psp/03/com.javierDiaz/ServerTrivia",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -78,7 +75,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705040153303</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="actualizamos thread para cargar los datos de la card">
+      <created>1705232336299</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705232336299</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -95,6 +99,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="creación server prueba" />
     <MESSAGE value="movemos carpeta" />
-    <option name="LAST_COMMIT_MESSAGE" value="movemos carpeta" />
+    <MESSAGE value="actualizamos thread para cargar los datos de la card" />
+    <option name="LAST_COMMIT_MESSAGE" value="actualizamos thread para cargar los datos de la card" />
   </component>
 </project>

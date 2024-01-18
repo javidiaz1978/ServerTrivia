@@ -5,6 +5,8 @@ import questionmodel.Deck;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ServerThread extends Thread {
     Socket service;
@@ -12,15 +14,17 @@ public class ServerThread extends Thread {
     private Card card;
     private ObjectOutputStream sOut;
     private ObjectInputStream sIn;
-    private int correct=0;
-    private int incorrect =0;
+    private int correct = 0;
+    private int incorrect = 0;
     private String resp;
-    private String name;
-    private int points=0;
+    private String namePlayer;
+    private int points = 0;
+    private boolean cont = true;
 
-    public ServerThread(Socket s,String name) {
+
+    public ServerThread(Socket s, String name) {
         service = s;
-        this.name= name;
+        this.namePlayer = name;
     }
 
     public void run() {
@@ -32,7 +36,7 @@ public class ServerThread extends Thread {
             System.out.println("Entra en hilo");
             String line;
 
-            while (true) {
+            while (cont) {
                 card = deck.getCard();
 
                 sOut.writeObject(card);
@@ -42,22 +46,23 @@ public class ServerThread extends Thread {
                 System.out.println(card.getQuestion());
 
                 line = sIn.readUTF();
+                if (line.equals("stop")) {
+
+                    break;
+                }
                 System.out.println(line);
 
                 testAnswer(line, card.getCorrectAnswer());
-                sOut.writeInt(correct);
-                sOut.writeInt(incorrect);
+                sOut.writeUTF("Correct: "+correct);
+                sOut.writeUTF("Incorrect: "+incorrect);
 
 
-                if (line.equals("bye")) {
-                    break;
-                }
             }
 
 
         } catch (IOException e) {
             System.out.println(e);
-        } finally {
+        } /*finally {
             try {
                 if (sOut != null) {
                     sOut.close();
@@ -82,21 +87,50 @@ public class ServerThread extends Thread {
             } catch (IOException ex) {
                 System.out.println(ex);
             }
-        }
+        }*/
     }
 
-    private void testAnswer(String answer, String correctAnswer){
-        if(answer.equals(correctAnswer)){
+    private void testAnswer(String answer, String correctAnswer) {
+        if (answer.equals(correctAnswer)) {
             correct++;
-            points = points+5;
-            resp="Correct";
-        }
-        else{
+            points = points + 5;
+            resp = "Correct";
+        } else {
             incorrect++;
-            resp="Incorrect";
-            points=points-3;
+            resp = "Incorrect";
+            points = points - 3;
         }
-        System.out.println("Correct = "+correct+", incorrect= "+incorrect);
+        System.out.println("Correct = " + correct + ", incorrect= " + incorrect);
 
     }
+
+    public Socket getService() {
+        return service;
+    }
+
+    public String getNamePlayer() {
+        return namePlayer;
+    }
+
+    public void SetNamePlayer(String name) {
+        this.namePlayer = name;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void playerResults(String totalResult) {
+        try {
+            sOut.writeUTF(totalResult);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+
 }
